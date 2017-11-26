@@ -1,0 +1,14 @@
+{
+  "name": "hw4",
+  "version": "1.0.0",
+  "description": "6212 project 4, TSP B&B",
+  "main": "hw4.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Warren",
+  "license": "ISC",
+  "dependencies": {
+    "json2csv": "^3.11.4"
+  }
+}
