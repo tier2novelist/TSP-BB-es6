@@ -1,4 +1,9 @@
-
+/**
+ * Time function execution time
+ * @param {*} f function to be executed
+ * @param {*} arg argument needed by function
+ * @returns time in nanoseconds
+ */
 var getElapsedTime = function(f, arg){
     var timestamp = process.hrtime();
     //f.apply(this, arg);
@@ -6,6 +11,12 @@ var getElapsedTime = function(f, arg){
     return process.hrtime(timestamp)[1];
 }
 
+/**
+ * Find minimum number in array except for the given index
+ * @param {*} array array of number
+ * @param {*} index index to avoid
+ * @returns minimum number
+ */
 var findMinExceptIndex = function(array, index){
     var result = {
         value: Infinity,

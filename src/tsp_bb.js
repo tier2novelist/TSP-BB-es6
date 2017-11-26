@@ -1,11 +1,22 @@
 var util = require('./util');
 
+/**
+ * Solution Constructor
+ * @param {*} path array of Vertex
+ * @param {*} matrix adjacency matrix with null value on diagonal
+ * @constructor
+ */
 function Solution(path, matrix){
     this.path = path;
     this.level = path.length - 1;
     this.lb = getLB(path, matrix);
 }
 
+/**
+ * Solution space Constructor
+ * @param {*} matrix adjacency matrix with null value on diagonal
+ * @constructor
+ */
 function SolutionSpace(matrix){
     this.space = new Array(matrix.length);
     this.branch = function(solution){
@@ -47,6 +58,11 @@ function SolutionSpace(matrix){
     }
 }
 
+/**
+ * Calculate lower bound for solution
+ * @param {*} path solution.path
+ * @param {*} matrix adjacency matrix with null value on diagonal
+ */
 var getLB = function(path, matrix){
     var lb = 0;
     for(var i = 0; i < matrix.length; i++){
@@ -88,10 +104,12 @@ var getLB = function(path, matrix){
     return Math.ceil(lb/2);
 }
 
+/**
+ * Solve TSP by build and search solution space
+ * @param {*} matrix adjacency matrix with null value on diagonal
+ * @returns best solution found
+ */
 var tsp_bb_solve = function(matrix){
-    //build and search solution space
-
-    // console.log(getLB([0,1,2,3,4], testMatrix));
     var best;
     var ss = new SolutionSpace(matrix);
 

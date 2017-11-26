@@ -14,6 +14,13 @@ var util = require('./util');
 // var result = tsp_bb_solve(testMatrix);
 // console.log(result.path, result.lb);
 
+/**
+ * Test result Constructor
+ * @param {*} size matrix size
+ * @param {*} elapsedTime actual execution time
+ * @param {*} theoryTimeOh theoretical big O time 
+ * @param {*} theoryTimeOmega theoretical big Omega time
+ */
 function Result(size, elapsedTime, theoryTimeOh, theoryTimeOmega){
     this.n = Math.log(size);
     this.elapsedTime = Math.log(elapsedTime);
@@ -21,8 +28,6 @@ function Result(size, elapsedTime, theoryTimeOh, theoryTimeOmega){
     this.theoryTimeOmega = Math.log(theoryTimeOmega);
 }
 
-
-util.generateMatrix(5);
 
 (function test(){
     var results = new Array();
