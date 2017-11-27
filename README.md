@@ -1,8 +1,8 @@
-#Welcome to this demo project of GWU CS_6212!
+# Welcome to this demo project of GWU CS_6212!
 
 This demo includes an adjacency matrix based tsp solver, a random matrix generator to build symmetric matrix of any size, and a timing function to keep track of algorithm execution time.
 
-##Usage
+## Usage
 
 Install dependencies
 ```
