@@ -16,10 +16,10 @@ var util = require('./util');
 
 /**
  * Test result Constructor
- * @param {*} size matrix size
- * @param {*} elapsedTime actual execution time
- * @param {*} theoryTimeOh theoretical big O time 
- * @param {*} theoryTimeOmega theoretical big Omega time
+ * @param {number} size matrix size
+ * @param {number} elapsedTime actual execution time
+ * @param {number} theoryTimeOh theoretical big O time 
+ * @param {number} theoryTimeOmega theoretical big Omega time
  */
 function Result(size, elapsedTime, theoryTimeOh, theoryTimeOmega){
     this.n = Math.log(size);

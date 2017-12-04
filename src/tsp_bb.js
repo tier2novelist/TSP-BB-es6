@@ -2,8 +2,8 @@ var util = require('./util');
 
 /**
  * Solution Constructor
- * @param {*} path array of Vertex
- * @param {*} matrix adjacency matrix with null value on diagonal
+ * @param {number[]} path array of Vertex
+ * @param {number[][]} matrix adjacency matrix with null value on diagonal
  * @constructor
  */
 function Solution(path, matrix){
@@ -14,7 +14,7 @@ function Solution(path, matrix){
 
 /**
  * Solution space Constructor
- * @param {*} matrix adjacency matrix with null value on diagonal
+ * @param {number[][]} matrix adjacency matrix with null value on diagonal
  * @constructor
  */
 function SolutionSpace(matrix){
@@ -60,8 +60,8 @@ function SolutionSpace(matrix){
 
 /**
  * Calculate lower bound for solution
- * @param {*} path solution.path
- * @param {*} matrix adjacency matrix with null value on diagonal
+ * @param {number[]} path solution.path
+ * @param {number[][]} matrix adjacency matrix with null value on diagonal
  */
 var getLB = function(path, matrix){
     var lb = 0;
@@ -106,7 +106,7 @@ var getLB = function(path, matrix){
 
 /**
  * Solve TSP by build and search solution space
- * @param {*} matrix adjacency matrix with null value on diagonal
+ * @param {number[][]} matrix adjacency matrix with null value on diagonal
  * @returns best solution found
  */
 var tsp_bb_solve = function(matrix){
