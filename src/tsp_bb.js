@@ -32,27 +32,32 @@ function getLB(path, matrix) {
     const index = path.indexOf(i);
     const row = matrix[i];
     switch (index) {
-      case 0:
+      case 0: {
         if (path.length === 1) {
           // fall through to case -1
+          // minimum
+          const m1 = findMinExceptIndex(row, null);
+          // 2nd minimum
+          const m2 = findMinExceptIndex(row, m1.index);
+          lb += (m1.value + m2.value);
+        } else if (path.length === matrix.length) {
+          lb += (row[path[1]] + row[path[path.length - 1]]);
         } else {
-          if (path.length === matrix.length) {
-            lb += (row[path[1]] + row[path[path.length - 1]]);
-          } else {
-            lb += (row[path[1]] + findMinExceptIndex(row, path[1]).value);
-          }
-          break;
+          lb += (row[path[1]] + findMinExceptIndex(row, path[1]).value);
         }
+        break;
+      }
 
-      case -1:
+      case -1: {
         // minimum
         const m1 = findMinExceptIndex(row, null);
         // 2nd minimum
         const m2 = findMinExceptIndex(row, m1.index);
         lb += (m1.value + m2.value);
         break;
+      }
 
-      case path.length - 1:
+      case path.length - 1: {
         if (path.length === matrix.length) {
           lb += (row[path[path.length - 2]] + row[path[0]]);
         } else {
@@ -60,8 +65,10 @@ function getLB(path, matrix) {
             findMinExceptIndex(row, path[path.length - 2]).value);
         }
         break;
-      default:
+      }
+      default: {
         lb += (row[path[index - 1]] + row[path[index + 1]]);
+      }
     }
   }
   return Math.ceil(lb / 2);
@@ -147,8 +154,6 @@ function solveTspBB(matrix) {
       }
     }
   }
-
-  // console.log(best.path.concat(best.path[0]), best.lb);
   best.path.concat(best.path[0]);
   return best;
 }
