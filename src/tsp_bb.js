@@ -4,13 +4,13 @@
  * @param {number} index index to avoid
  * @returns minimum number
  */
-function findMinExceptIndex(array, index) {
+const findMinExceptIndex = (array, index) => {
   const result = {
     value: Infinity,
     index: -1,
   };
 
-  for (let i = 0; i < array.length; i += 1) {
+  for (let i = 0, n = array.length; i < n; i += 1) {
     if (i !== index && array[i] != null) {
       if (array[i] < result.value) {
         result.index = i;
@@ -19,14 +19,14 @@ function findMinExceptIndex(array, index) {
     }
   }
   return result;
-}
+};
 
 /**
  * Calculate lower bound for solution
  * @param {number[]} path solution.path
  * @param {number[][]} matrix adjacency matrix with null value on diagonal
  */
-function getLB(path, matrix) {
+const getLB = (path, matrix) => {
   let lb = 0;
   for (let i = 0; i < matrix.length; i += 1) {
     const index = path.indexOf(i);
@@ -72,7 +72,7 @@ function getLB(path, matrix) {
     }
   }
   return Math.ceil(lb / 2);
-}
+};
 
 
 /**
@@ -94,7 +94,7 @@ function Solution(path, matrix) {
  */
 function SolutionSpace(matrix) {
   this.space = new Array(matrix.length);
-  this.branch = function branch(solution) {
+  this.branch = (solution) => {
     const { path, level } = solution;
     if (level === 0) {
       this.space[0] = [solution];
@@ -105,7 +105,7 @@ function SolutionSpace(matrix) {
         nextLevel = [];
       }
 
-      for (let i = 0; i < matrix.length; i += 1) {
+      for (let i = 0, n = matrix.length; i < n; i += 1) {
         if (path.indexOf(i) === -1) {
           nextLevel.push(new Solution(path.slice().concat(i), matrix));
         }
@@ -118,7 +118,7 @@ function SolutionSpace(matrix) {
       this.branch(nextLevel[0]);
     }
   };
-  this.prune = function prune(solution) {
+  this.prune = (solution) => {
     const { lb, level } = solution;
     for (let i = 0; i < level; i += 1) {
       const currentLevel = this.space[i];
@@ -134,7 +134,7 @@ function SolutionSpace(matrix) {
  * @param {number[][]} matrix adjacency matrix with null value on diagonal
  * @returns {Solution} best solution found
  */
-function solveTspBB(matrix) {
+const solveTspBB = (matrix) => {
   let best;
   const ss = new SolutionSpace(matrix);
 
@@ -156,6 +156,6 @@ function solveTspBB(matrix) {
   }
   best.path.concat(best.path[0]);
   return best;
-}
+};
 
 module.exports = solveTspBB;

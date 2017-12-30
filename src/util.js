@@ -8,27 +8,24 @@ const solveTspBB = require('./tsp_bb');
  * @param {object} arg argument needed by function
  * @returns {number} time in nanoseconds
  */
-function getElapsedTime(f, arg) {
+const getElapsedTime = (f, arg) => {
   const timestamp = process.hrtime();
-  // f.apply(this, arg);
   f(arg);
   return process.hrtime(timestamp)[1];
-}
+};
 
 /**
  * Generate random integer of range [0, 10]
  * @returns {number} random integer of range [0, 10]
  */
-function getRandomInt() {
-  return Math.ceil(Math.random() * 10);
-}
+const getRandomInt = () => Math.ceil(Math.random() * 10);
 
 /**
  * Generate a size-by-size matrix that is populated with random integers
  * @param {number} size matrix size
  * @returns {number[][]} matrix
  */
-function generateMatrix(size) {
+const generateMatrix = (size) => {
   const matrix = new Array(size);
   for (let i = 0; i < size; i += 1) {
     matrix[i] = new Array(size);
@@ -43,19 +40,19 @@ function generateMatrix(size) {
     }
   }
   return matrix;
-}
+};
 
 /**
  * Get n!
  * @param {number} n any positive integer
  * @returns {number} n!
  */
-function getFactorial(n) {
+const getFactorial = (n) => {
   if (n === 0) {
     return 1;
   }
   return n * getFactorial(n - 1);
-}
+};
 
 /**
  * Test result Constructor
@@ -65,7 +62,7 @@ function getFactorial(n) {
  * @param {number} theoryTimeOmega theoretical big Omega time
  * @constructor
  */
-function TimeResult(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
+function ExpResult(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
   this.n = Math.log(size);
   this.elapsedTime = Math.log(elapsedTime);
   this.theoryTimeOh = Math.log(theoryTimeOh);
@@ -77,10 +74,10 @@ function TimeResult(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
  * @param {number} minSize minimum size of adjacency matrix
  * @param {number} maxSize maximum size of adjacency matrix
  */
-function report(minSize, maxSize) {
+const report = (minSize, maxSize) => {
   const results = [];
   for (let size = minSize, n = maxSize + 1; size < n; size += 1) {
-    results.push(new TimeResult(
+    results.push(new ExpResult(
       size,
       getElapsedTime(solveTspBB, generateMatrix(size)),
       getFactorial(size), size ** 2,
@@ -97,6 +94,6 @@ function report(minSize, maxSize) {
     if (err) throw err;
     console.log('file saved');
   });
-}
+};
 
 exports.report = report;
