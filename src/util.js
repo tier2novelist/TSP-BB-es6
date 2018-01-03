@@ -26,6 +26,7 @@ const getRandomInt = () => Math.ceil(Math.random() * 10);
  * @returns {number[][]} matrix
  */
 const generateMatrix = (size) => {
+  if (size < 3) throw new Error(`Invalid input ${size} (at least 3)`);
   const matrix = new Array(size);
   for (let i = 0; i < size; i += 1) {
     matrix[i] = new Array(size);
