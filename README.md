@@ -16,18 +16,17 @@ npm install
 
 Include tsp_bb module in yours
 ```
-const solveTspBB = require('./tsp_bb');
+const solveTsp = require('./tsp_bb');
 ```
 
 Solve TSP
 ```
-const solution = solveTspBB(matrix);
+const solution = solveTsp(matrix);
 ```
 
 Read solution
 ```
-solution.path;
-solution.lb
+const { path, lb } = solution;
 ```
 
 Experimental data output
