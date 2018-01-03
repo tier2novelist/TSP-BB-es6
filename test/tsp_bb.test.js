@@ -15,9 +15,9 @@ describe('test functions', () => {
 });
 
 describe('test cases', () => {
-  const solveTspBB = tsp.__get__('solveTspBB');
+  const solveTsp = tsp.__get__('solveTsp');
   it('test case 1', () => {
-    const solution = solveTspBB(Array.of(
+    const solution = solveTsp(Array.of(
       [NaN, 3, 1, 5, 8],
       [3, NaN, 6, 7, 9],
       [1, 6, NaN, 4, 2],

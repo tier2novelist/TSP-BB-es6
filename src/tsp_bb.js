@@ -14,6 +14,24 @@ const findMinExceptIndex = (array, index) => array.reduce((prev, curr, currIndex
 }, { value: Infinity, index: -1 });
 
 /**
+ * Validate input matrix
+ * @param {number[][]} matrix Adjacency matrix as input
+ */
+const validateMatrix = (matrix) => {
+  const row = matrix.length;
+  const col = matrix[0].length;
+  if (row < 3) throw new Error('Illegal Argument, matrix size must be at least 3');
+  else if (row !== col) throw new Error(`Illegal Argument, matrix row number(${row}) does not match column number(${col})`);
+  else {
+    matrix.forEach((array, index) => {
+      if (!Number.isNaN(array[index])) {
+        throw new Error(`Illegal Argument at row, column ${index}, matrix must have NaN on diagonal`);
+      }
+    });
+  }
+};
+
+/**
  * Calculate lower bound for solution
  * @param {number[]} path solution.path
  * @param {number[][]} matrix adjacency matrix with NaN on diagonal
@@ -122,11 +140,12 @@ function SolutionSpace(matrix) {
 }
 
 /**
- * Solve TSP by build and search solution space
- * @param {number[][]} matrix adjacency matrix with null value on diagonal
+ * Private method, solve TSP by build and search solution space
+ * @param {number[][]} matrix adjacency matrix with NaN value on diagonal
  * @returns {Solution} best solution found
  */
 const solveTspBB = (matrix) => {
+  validateMatrix(matrix);
   let best;
   const ss = new SolutionSpace(matrix);
 
@@ -146,8 +165,18 @@ const solveTspBB = (matrix) => {
       }
     }
   }
+  return best;
+};
+
+/**
+ * Solve TSP
+ * @param {number[][]} matrix adjacency matrix with NaN value on diagonal
+ * @returns {Solution} best solution found
+ */
+const solveTsp = (matrix) => {
+  const best = solveTspBB(matrix);
   best.path.concat(best.path[0]);
   return best;
 };
 
-module.exports = solveTspBB;
+module.exports = solveTsp;
