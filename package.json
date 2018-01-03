@@ -12,7 +12,8 @@
     "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "mocha": "^4.1.0"
+    "mocha": "^4.1.0",
+    "rewire": "^3.0.2"
   },
   "dependencies": {
     "json2csv": "^3.11.4"

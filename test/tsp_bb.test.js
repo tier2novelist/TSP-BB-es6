@@ -1,16 +1,29 @@
 /* eslint-env mocha */
-const solveTspBB = require('../src/tsp_bb');
+/* eslint no-underscore-dangle: ["error", { "allow": ["__get__"] }] */
+
+const rewire = require('rewire');
 const { expect } = require('chai');
 
+const tsp = rewire('../src/tsp_bb');
+
+describe('test functions', () => {
+  it('test findMinExceptIndex', () => {
+    const findMinExceptIndex = tsp.__get__('findMinExceptIndex');
+    expect(findMinExceptIndex([3, 4, 1, 2, NaN], 2)).to.deep.equal({ value: 2, index: 3 });
+    expect(findMinExceptIndex([3, 4, 1, 2, NaN], 0)).to.deep.equal({ value: 1, index: 2 });
+  });
+});
+
 describe('test cases', () => {
+  const solveTspBB = tsp.__get__('solveTspBB');
   it('test case 1', () => {
-    const testMatrix = [];
-    testMatrix.push([null, 3, 1, 5, 8]);
-    testMatrix.push([3, null, 6, 7, 9]);
-    testMatrix.push([1, 6, null, 4, 2]);
-    testMatrix.push([5, 7, 4, null, 3]);
-    testMatrix.push([8, 9, 2, 3, null]);
-    const solution = solveTspBB(testMatrix);
+    const solution = solveTspBB(Array.of(
+      [NaN, 3, 1, 5, 8],
+      [3, NaN, 6, 7, 9],
+      [1, 6, NaN, 4, 2],
+      [5, 7, 4, NaN, 3],
+      [8, 9, 2, 3, NaN],
+    ));
     expect(solution.lb).to.be.equal(16);
     expect(solution.path).to.deep.equal([0, 1, 3, 4, 2]);
   });

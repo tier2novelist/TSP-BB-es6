@@ -4,27 +4,19 @@
  * @param {number} index index to avoid
  * @returns minimum number
  */
-const findMinExceptIndex = (array, index) => {
-  const result = {
-    value: Infinity,
-    index: -1,
-  };
-
-  for (let i = 0, n = array.length; i < n; i += 1) {
-    if (i !== index && array[i] != null) {
-      if (array[i] < result.value) {
-        result.index = i;
-        result.value = array[i];
-      }
+const findMinExceptIndex = (array, index) => array.reduce((prev, curr, currIndex) => {
+  if (currIndex !== index && !Number.isNaN(curr)) {
+    if (curr < prev.value) {
+      return { value: curr, index: currIndex };
     }
   }
-  return result;
-};
+  return prev;
+}, { value: Infinity, index: -1 });
 
 /**
  * Calculate lower bound for solution
  * @param {number[]} path solution.path
- * @param {number[][]} matrix adjacency matrix with null value on diagonal
+ * @param {number[][]} matrix adjacency matrix with NaN on diagonal
  */
 const getLB = (path, matrix) => {
   let lb = 0;
@@ -36,7 +28,7 @@ const getLB = (path, matrix) => {
         if (path.length === 1) {
           // fall through to case -1
           // minimum
-          const m1 = findMinExceptIndex(row, null);
+          const m1 = findMinExceptIndex(row, NaN);
           // 2nd minimum
           const m2 = findMinExceptIndex(row, m1.index);
           lb += (m1.value + m2.value);
@@ -50,7 +42,7 @@ const getLB = (path, matrix) => {
 
       case -1: {
         // minimum
-        const m1 = findMinExceptIndex(row, null);
+        const m1 = findMinExceptIndex(row, NaN);
         // 2nd minimum
         const m2 = findMinExceptIndex(row, m1.index);
         lb += (m1.value + m2.value);

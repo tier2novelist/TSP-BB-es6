@@ -33,7 +33,7 @@ const generateMatrix = (size) => {
       if (i < j) {
         matrix[i][j] = getRandomInt();
       } else if (i === j) {
-        matrix[i][j] = null;
+        matrix[i][j] = NaN;
       } else {
         matrix[i][j] = matrix[j][i];
       }
