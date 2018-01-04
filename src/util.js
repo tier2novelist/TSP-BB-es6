@@ -1,6 +1,6 @@
 const json2csv = require('json2csv');
 const fs = require('fs');
-const solveTspBB = require('./tsp_bb');
+const solveTsp = require('./tsp_bb');
 
 /**
  * Time function execution time
@@ -57,13 +57,12 @@ const getFactorial = (n) => {
 
 class ExpResult {
   /**
- * Test result Constructor
- * @param {number} size matrix size
- * @param {number} elapsedTime actual execution time
- * @param {number} theoryTimeOh theoretical big O time
- * @param {number} theoryTimeOmega theoretical big Omega time
- * @constructor
- */
+   * Test result Constructor
+   * @param {number} size matrix size
+   * @param {number} elapsedTime actual execution time
+   * @param {number} theoryTimeOh theoretical big O time
+   * @param {number} theoryTimeOmega theoretical big Omega time
+   */
   constructor(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
     this.n = Math.log(size);
     this.elapsedTime = Math.log(elapsedTime);
@@ -82,7 +81,7 @@ const report = (minSize, maxSize) => {
   for (let size = minSize, n = maxSize + 1; size < n; size += 1) {
     results.push(new ExpResult(
       size,
-      getElapsedTime(solveTspBB, generateMatrix(size)),
+      getElapsedTime(solveTsp, generateMatrix(size)),
       getFactorial(size), size ** 2,
     ));
   }

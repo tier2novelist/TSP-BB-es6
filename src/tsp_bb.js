@@ -86,11 +86,10 @@ const getLB = (path, matrix) => {
 
 class Solution {
   /**
- * Solution Constructor
- * @param {number[]} path array of Vertex
- * @param {number[][]} matrix adjacency matrix with null value on diagonal
- * @constructor
- */
+   * Solution Constructor
+   * @param {number[]} path array of Vertex
+   * @param {number[][]} matrix adjacency matrix with NaN value on diagonal
+   */
   constructor(path, matrix) {
     this.path = path;
     this.level = path.length - 1;
@@ -100,12 +99,15 @@ class Solution {
 
 class SolutionSpace {
   /**
- * Solution space Constructor
- * @param {number[][]} matrix adjacency matrix with null value on diagonal
- * @constructor
- */
+   * Solution space Constructor
+   * @param {number[][]} matrix adjacency matrix with NaN value on diagonal
+   */
   constructor(matrix) {
     this.space = new Array(matrix.length);
+    /**
+     * Extend solution space from a given solution
+     * @param {Solution{}} solution an existing solution
+     */
     this.branch = (solution) => {
       const { path, level } = solution;
       if (level === 0) {
@@ -130,6 +132,10 @@ class SolutionSpace {
         this.branch(nextLevel[0]);
       }
     };
+    /**
+     * Eliminate solutions that are inferior to the given solution
+     * @param {Solution{}} solution an existing solution
+     */
     this.prune = (solution) => {
       const { lb, level } = solution;
       for (let i = 0; i < level; i += 1) {
