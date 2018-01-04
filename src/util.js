@@ -10,7 +10,7 @@ const solveTsp = require('./tsp_bb');
  */
 const getElapsedTime = (f, arg) => {
   const timestamp = process.hrtime();
-  f(arg);
+  f.call(this, arg);
   return process.hrtime(timestamp)[1];
 };
 
