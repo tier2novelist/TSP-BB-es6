@@ -6,7 +6,7 @@ const { expect } = require('chai');
 
 const tsp = rewire('../src/tsp_bb');
 
-describe('test functions', () => {
+describe('test tsp private functions', () => {
   it('test findMinExceptIndex', () => {
     const findMinExceptIndex = tsp.__get__('findMinExceptIndex');
     expect(findMinExceptIndex([3, 4, 1, 2, NaN], 2)).to.deep.equal({ value: 2, index: 3 });
@@ -14,7 +14,7 @@ describe('test functions', () => {
   });
 });
 
-describe('test cases', () => {
+describe('tsp test cases', () => {
   const solveTsp = tsp.__get__('solveTsp');
   it('test case 1', () => {
     const solution = solveTsp(Array.of(

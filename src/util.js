@@ -94,7 +94,6 @@ const report = (minSize, maxSize) => {
 
   fs.writeFile('file.csv', csv, (err) => {
     if (err) throw err;
-    console.log('file saved');
   });
 };
 
