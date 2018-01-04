@@ -1,18 +1,7 @@
 const json2csv = require('json2csv');
 const fs = require('fs');
 const solveTsp = require('./tsp_bb');
-
-/**
- * Time function execution time
- * @param {function} f function to be executed
- * @param {object} arg argument needed by function
- * @returns {number} time in nanoseconds
- */
-const getElapsedTime = (f, arg) => {
-  const timestamp = process.hrtime();
-  f.call(this, arg);
-  return process.hrtime(timestamp)[1];
-};
+const exp = require('./exp');
 
 /**
  * Generate random integer of range [0, 10]
@@ -55,22 +44,6 @@ const getFactorial = (n) => {
   return n * getFactorial(n - 1);
 };
 
-class ExpResult {
-  /**
-   * Test result Constructor
-   * @param {number} size matrix size
-   * @param {number} elapsedTime actual execution time
-   * @param {number} theoryTimeOh theoretical big O time
-   * @param {number} theoryTimeOmega theoretical big Omega time
-   */
-  constructor(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
-    this.n = Math.log(size);
-    this.elapsedTime = Math.log(elapsedTime);
-    this.theoryTimeOh = Math.log(theoryTimeOh);
-    this.theoryTimeOmega = Math.log(theoryTimeOmega);
-  }
-}
-
 /**
  * Timing algorithm and export result to csv file
  * @param {number} minSize minimum size of adjacency matrix
@@ -79,9 +52,9 @@ class ExpResult {
 const report = (minSize, maxSize) => {
   const results = [];
   for (let size = minSize, n = maxSize + 1; size < n; size += 1) {
-    results.push(new ExpResult(
+    results.push(new exp.Result(
       size,
-      getElapsedTime(solveTsp, generateMatrix(size)),
+      exp.getElapsedTime(solveTsp, generateMatrix(size)),
       getFactorial(size), size ** 2,
     ));
   }
