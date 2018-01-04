@@ -55,7 +55,8 @@ const getFactorial = (n) => {
   return n * getFactorial(n - 1);
 };
 
-/**
+class ExpResult {
+  /**
  * Test result Constructor
  * @param {number} size matrix size
  * @param {number} elapsedTime actual execution time
@@ -63,11 +64,12 @@ const getFactorial = (n) => {
  * @param {number} theoryTimeOmega theoretical big Omega time
  * @constructor
  */
-function ExpResult(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
-  this.n = Math.log(size);
-  this.elapsedTime = Math.log(elapsedTime);
-  this.theoryTimeOh = Math.log(theoryTimeOh);
-  this.theoryTimeOmega = Math.log(theoryTimeOmega);
+  constructor(size, elapsedTime, theoryTimeOh, theoryTimeOmega) {
+    this.n = Math.log(size);
+    this.elapsedTime = Math.log(elapsedTime);
+    this.theoryTimeOh = Math.log(theoryTimeOh);
+    this.theoryTimeOmega = Math.log(theoryTimeOmega);
+  }
 }
 
 /**

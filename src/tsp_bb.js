@@ -84,65 +84,68 @@ const getLB = (path, matrix) => {
   return Math.ceil(lb / 2);
 };
 
-
-/**
+class Solution {
+  /**
  * Solution Constructor
  * @param {number[]} path array of Vertex
  * @param {number[][]} matrix adjacency matrix with null value on diagonal
  * @constructor
  */
-function Solution(path, matrix) {
-  this.path = path;
-  this.level = path.length - 1;
-  this.lb = getLB(path, matrix);
+  constructor(path, matrix) {
+    this.path = path;
+    this.level = path.length - 1;
+    this.lb = getLB(path, matrix);
+  }
 }
 
-/**
+class SolutionSpace {
+  /**
  * Solution space Constructor
  * @param {number[][]} matrix adjacency matrix with null value on diagonal
  * @constructor
  */
-function SolutionSpace(matrix) {
-  this.space = new Array(matrix.length);
-  this.branch = (solution) => {
-    const { path, level } = solution;
-    if (level === 0) {
-      this.space[0] = [solution];
-    }
-    if (level < this.space.length - 1) {
-      let nextLevel = this.space[level + 1];
-      if (nextLevel == null) {
-        nextLevel = [];
+  constructor(matrix) {
+    this.space = new Array(matrix.length);
+    this.branch = (solution) => {
+      const { path, level } = solution;
+      if (level === 0) {
+        this.space[0] = [solution];
       }
+      if (level < this.space.length - 1) {
+        let nextLevel = this.space[level + 1];
+        if (nextLevel == null) {
+          nextLevel = [];
+        }
 
-      for (let i = 0, n = matrix.length; i < n; i += 1) {
-        if (path.indexOf(i) === -1) {
-          nextLevel.push(new Solution(path.slice().concat(i), matrix));
+        for (let i = 0, n = matrix.length; i < n; i += 1) {
+          if (path.indexOf(i) === -1) {
+            nextLevel.push(new Solution(path.slice().concat(i), matrix));
+          }
+        }
+
+        nextLevel.sort((s1, s2) => s1.lb - s2.lb);
+
+        this.space[level + 1] = nextLevel;
+
+        this.branch(nextLevel[0]);
+      }
+    };
+    this.prune = (solution) => {
+      const { lb, level } = solution;
+      for (let i = 0; i < level; i += 1) {
+        const currentLevel = this.space[i];
+        while (currentLevel.length > 0 && currentLevel[currentLevel.length - 1].lb >= lb) {
+          currentLevel.pop();
         }
       }
-
-      nextLevel.sort((s1, s2) => s1.lb - s2.lb);
-
-      this.space[level + 1] = nextLevel;
-
-      this.branch(nextLevel[0]);
-    }
-  };
-  this.prune = (solution) => {
-    const { lb, level } = solution;
-    for (let i = 0; i < level; i += 1) {
-      const currentLevel = this.space[i];
-      while (currentLevel.length > 0 && currentLevel[currentLevel.length - 1].lb >= lb) {
-        currentLevel.pop();
-      }
-    }
-  };
+    };
+  }
 }
 
 /**
  * Private method, solve TSP by build and search solution space
  * @param {number[][]} matrix adjacency matrix with NaN value on diagonal
- * @returns {Solution} best solution found
+ * @returns {Solution{}} best solution found
  */
 const solveTspBB = (matrix) => {
   validateMatrix(matrix);
@@ -171,7 +174,7 @@ const solveTspBB = (matrix) => {
 /**
  * Solve TSP
  * @param {number[][]} matrix adjacency matrix with NaN value on diagonal
- * @returns {Solution} best solution found
+ * @returns {Solution{}} best solution found
  */
 const solveTsp = (matrix) => {
   const best = solveTspBB(matrix);
