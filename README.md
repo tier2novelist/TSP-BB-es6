@@ -9,34 +9,34 @@ This project includes
 ## Usage
 
 Install dependencies
-```
+```bash
 cd TSP-BB-es6
 npm install
 ```
 
 Include tsp_bb module in yours
-```
+```JavaScript
 const solveTsp = require('./tsp_bb');
 ```
 
 Solve TSP
-```
+```JavaScript
 const solution = solveTsp(matrix);
 ```
 
 Read solution
-```
+```JavaScript
 const { path, lb } = solution;
 ```
 
 Experimental data output
-```
+```JavaScript
 const util = require('../src/util');
 util.report(5, 50);
 ```
 
 Run test cases
-```
+```bash
 npm test
 ```
 ## See a TypeScript version
