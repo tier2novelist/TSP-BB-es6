@@ -1,4 +1,6 @@
-# Welcome to this algorithm project of GWU CS_6212!
+[![Build Status](https://travis-ci.org/1988warren/TSP-BB-es6.svg?branch=master)](https://travis-ci.org/1988warren/TSP-BB-es6)
+
+# Welcome to this algorithm project of GWU CS6212!
 
 This project includes 
 1. a tsp solver based on _Branch and Bound_ algorithm
